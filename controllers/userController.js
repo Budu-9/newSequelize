@@ -18,13 +18,7 @@ const addUser = async(req,res) => {
 // get all User 
 const getAllUser = async (req,res) => {
     
-    let students = await User.findAll({
-        attributes: [
-            'first_name',
-            'last_name',
-            'gender'
-        ]
-    })
+    let students = await User.findAll({})
     res.status(200).send(students)
 }
 

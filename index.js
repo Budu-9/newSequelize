@@ -10,7 +10,7 @@ const router = require('./routes/userRouter')
 app.use('/', router)
 
 
-
+// server 
 app.listen(3000, () => {
     console.log('Server running...')
 }) 
