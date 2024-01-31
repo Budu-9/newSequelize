@@ -1,7 +1,7 @@
 const db = require('../models')
 
 // main model
-const User = db.User
+const User = db.students
 
 // create User
 const addUser = async(req,res) => {
