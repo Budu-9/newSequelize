@@ -15,6 +15,8 @@ const sequelize = new Sequelize(
     
 )
 
+
+//database authentication
 sequelize.authenticate()
 .then(() => {
     console.log('Database connection successful')
@@ -23,16 +25,24 @@ sequelize.authenticate()
     console.log(err)
 })
 
+
+//initializing db
 const db = {}
 
 db.Sequelize = Sequelize
 db.sequelize = sequelize
 
+
+//initialize with table name
 db.students = require('./userModel')(sequelize, DataTypes)
 
+
+// models synchronization
 db.sequelize.sync({ force:false })
 .then(() => {
     console.log('sync successful')
 })
+
+
 
 module.exports = db
