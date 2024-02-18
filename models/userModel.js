@@ -4,6 +4,7 @@ module.exports = ( sequelize, DataTypes ) => {
         id_students: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            autoIncrement: true,
             validate: {
                 notEmpty: true
             },
