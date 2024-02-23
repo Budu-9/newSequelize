@@ -1,55 +1,66 @@
-const db = require('../models')
-
-// main model
-const User = db.students
+const UserService = require('../services/userService')
+const userService = new UserService()
 
 // create User
-const addUser = async(req,res) => {
-    let info = {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        gender: req.body.gender
+async function addUser(req,res){
+    try {
+        const userData = req.body
+        const student = await userService.createUser(userData)
+        res.status(200).json(student)
+    } catch (error) {
+        res.status(500).json({error:'error creating user'})
+        console.log(error)
     }
-
-    const student = await User.create(info)
-    res.status(200)
-    res.send(student)
 }
 
 // get all User 
-const getAllUser = async (req,res) => {
+async function getAllUser (req,res){
     
-    let students = await User.findAll()
-    res.status(200)
-    res.send(students)
+    try {
+        const students = await userService.getAllUser() 
+        res.status(200).json(students)
+    } catch (error) {
+        res.status(500).json({error:'error getting users'})
+        console.log(error)
+    }
 }
 
 //get one User
-const getOneUser = async(req,res) => {
-    
-    let student = await User.findOne({where: { gender: "male" }})
-    res.status(200)
-    res.send(student)
+async function getOneUser(req,res){
+    try {
+        const userId = req.params.id_students
+        const student = await userService.getUserById(userId)
+        res.status(200).json(student)
+    } catch (error) {
+        res.status(500).json({error:'error getting user'})
+        console.log(error)
+    }
 }
 
 // update User
 
-const updateUser = async(req,res) =>{
-
-    let id = req.params.id
-    const user = await User.update(req.body, {where: { id: id }})
-
-    res.status(200).send(user)
+async function updateUser(req,res){
+    try {
+        const userId = req.params.id_students
+        const userData = req.body
+        const user = await userService.updateUser(userData,userId) 
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(500).json({error:'error updating user'})
+    }    
 }
 
 
 // delete User
 
-const deleteUser = async (req,res) => {
-    let id = req.params.id
-
-    await User.destroy({ where: { id: id }})
-    res.status(200).send('deletion successful')
+async function deleteUser(req,res){
+    try {
+        const userId = req.params.id_students
+        await userService.deleteUser(userId)
+        res.status(200).send('deletion successful')
+    } catch (error) {
+        res.status(500).json({error:'error deleting user'})
+    }    
 }
 
 

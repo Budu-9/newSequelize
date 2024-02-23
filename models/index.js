@@ -38,7 +38,7 @@ db.students = require('./userModel')(sequelize, DataTypes)
 
 
 // models synchronization
-db.sequelize.sync({ force:false })
+db.sequelize.sync({ alter:true })
 .then(() => {
     console.log('sync successful')
 })
