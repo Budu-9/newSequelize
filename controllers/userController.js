@@ -13,6 +13,18 @@ async function addUser(req,res){
     }
 }
 
+// create bulk user
+async function addBulkUser(req,res){
+    try {
+        const usersData = req.body
+        const students = await userService.createBulkUsers(usersData)
+        res.status(200).json(students)
+    } catch (error) {
+        res.status(500).json({error:'error creating user'})
+        console.log(error)
+    }
+}
+
 // get all User 
 async function getAllUser (req,res){
     
@@ -37,7 +49,7 @@ async function getOneUser(req,res){
     }
 }
 
-// update User
+// update a User
 
 async function updateUser(req,res){
     try {
@@ -45,6 +57,18 @@ async function updateUser(req,res){
         const userData = req.body
         const user = await userService.updateUser(userData,userId) 
         res.status(200).json(user)
+    } catch (error) {
+        res.status(500).json({error:'error updating user'})
+    }    
+}
+
+// update bulk users
+async function updateBulkUsers(req,res){
+    try {
+        //const userId = req.params.id_students
+        const usersData = req.body
+        const users = await userService.updateBulkUsers(usersData) 
+        res.status(200).json(users)
     } catch (error) {
         res.status(500).json({error:'error updating user'})
     }    
@@ -69,5 +93,7 @@ module.exports = {
     getAllUser,
     getOneUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    addBulkUser,
+    updateBulkUsers
 }
