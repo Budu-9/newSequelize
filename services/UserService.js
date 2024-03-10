@@ -3,7 +3,7 @@ const db = require('../models')
 // main model
 const User = db.students
 
-class userService{
+class UserService{
     async createUser(userData) {
         try {
             const user = await User.create(userData)
@@ -73,4 +73,4 @@ class userService{
 
 }
 
-module.exports = userService
+module.exports = UserService

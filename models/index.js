@@ -34,7 +34,7 @@ db.sequelize = sequelize
 
 
 //initialize with table name
-db.students = require('./userModel')(sequelize, DataTypes)
+db.students = require('./UserModel')(sequelize, DataTypes)
 
 
 // models synchronization
